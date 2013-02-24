@@ -2,15 +2,14 @@ module Gem
   class << self
 
     ##
-    # Returns a string representing that part or the directory tree that is
-    # common to all specified directories.
+    # Returns full path of previous but one directory of dir in path
+    # E.g. for '/usr/share/ruby', 'ruby', it returns '/usr'
 
-    def common_path(dirs)
-      paths = dirs.collect {|dir| dir.split(File::SEPARATOR)}
-      uncommon_idx = paths.transpose.each_with_index.find {|dirnames, idx| dirnames.uniq.length > 1}.last
-      paths[0][0 ... uncommon_idx].join(File::SEPARATOR)
+    def previous_but_one_dir_to(path, dir)
+      split_path = path.split(File::SEPARATOR)
+      File.join(split_path.take_while { |one_dir| one_dir !~ /^#{dir}$/ }[0..-2])
     end
-    private :common_path
+    private :previous_but_one_dir_to
 
     ##
     # Default gems locations allowed on FHS system (/usr, /usr/share).
@@ -19,8 +18,8 @@ module Gem
 
     def default_locations
       @default_locations ||= {
-        :system => common_path([ConfigMap[:vendorlibdir], ConfigMap[:vendorarchdir]]),
-        :local => common_path([ConfigMap[:sitelibdir], ConfigMap[:sitearchdir]])
+        :system => previous_but_one_dir_to(ConfigMap[:vendordir], ConfigMap[:RUBY_INSTALL_NAME]),
+        :local => previous_but_one_dir_to(ConfigMap[:sitedir], ConfigMap[:RUBY_INSTALL_NAME])
       }
     end
 
@@ -29,11 +28,12 @@ module Gem
     # platform independent (:gem_dir) and dependent (:ext_dir) files.
 
     def default_dirs
+      @libdir ||= ConfigMap[:sitelibdir] == ConfigMap[:sitearchdir] ? ConfigMap[:datadir] : ConfigMap[:libdir]
       @default_dirs ||= Hash[default_locations.collect do |destination, path|
         [destination, {
           :bin_dir => File.join(path, ConfigMap[:bindir].split(File::SEPARATOR).last),
           :gem_dir => File.join(path, ConfigMap[:datadir].split(File::SEPARATOR).last, 'gems'),
-          :ext_dir => File.join(path, ConfigMap[:libdir].split(File::SEPARATOR).last, 'gems')
+          :ext_dir => File.join(path, @libdir.split(File::SEPARATOR).last, 'gems')
         }]
       end]
     end
@@ -64,7 +64,7 @@ module Gem
 
     def default_ext_dir_for base_dir
       dirs = Gem.default_dirs.detect {|location, paths| paths[:gem_dir] == base_dir}
-      dirs && File.join(dirs.last[:ext_dir], 'exts')
+      dirs && File.join(dirs.last[:ext_dir], RbConfig::CONFIG['RUBY_INSTALL_NAME'])
     end
   end
 end
