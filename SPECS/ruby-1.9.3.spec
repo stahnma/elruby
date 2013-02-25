@@ -85,9 +85,7 @@ License: Ruby or BSD
 URL: http://ruby-lang.org/
 Source0: ftp://ftp.ruby-lang.org/pub/%{name}/%{major_minor_version}/%{ruby_archive}.tar.gz
 Source1: operating_system.rb
-%if 0%{?fedora}  < 6
 Source2: configure
-%endif
 
 # http://redmine.ruby-lang.org/issues/5231
 Patch0: ruby-1.9.3-disable-versioned-paths.patch
