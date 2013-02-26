@@ -24,6 +24,16 @@ with all versions of ruby. This may mean rebuilding gem packages or just using
 `gem install`.
 
 #### Yum Config
+
+Ruby 1.8.7 (EL5 only)
+    
+    [elruby-replace-187]
+    name="elruby replacement 1.8.7"
+    baseurl="http://elruby.websages.com/replacement/1.8.7/5/$basearch/"
+    enabled=1
+    gpgcheck=0
+    
+    
 Ruby 1.9.3
 
     [elruby-replace-193]
@@ -101,10 +111,12 @@ _Still a work in progress._
 
 _Packages not built or through QA yet_
 
+
 ## Bugs
 If you happen to find bugs, please let me know. I'll attempt to fix them. File
 them at
 [http://github.com/stahnma/elruby/issues](http://github.com/stahnma/elruby/issues).
+
 
 ## Additional Packages
 I imagine if people actually start using this, they'll want more packages built
@@ -113,11 +125,16 @@ issue a pull request on elruby and I'll try to get those built out.
 
 Long-term I'd love to have Jenkins setup for these builds. We'll see if that happens.
 
+
+
 ## Notes
 Packages are not currently signed. They will be. That's on the list.
 
+
+
 ## License
 Everything in elruby is Ruby license unless otherwise noted.
+
 
 ## Author
 [@stahnma](http://twitter.com/stahnma) on twitter. © 2013
