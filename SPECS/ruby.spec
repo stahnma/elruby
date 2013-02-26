@@ -56,6 +56,8 @@ BuildRequires: tk-devel
 # Needed to pass test_set_program_name(TestRubyOptions)
 BuildRequires: procps
 
+BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
 %description
 Ruby is the interpreted scripting language for quick and easy
 object-oriented programming.  It has many features to process text
@@ -68,9 +70,17 @@ straight-forward, and extensible.
 %setup -q -n %{ruby_archive}
 
 #%%patch12 -p1
+%if 0%{?rhel} < 6
+#cp -p %{SOURCE2} .
+#chmod 755 ./configure
+%endif
 
 %build
+%if 0%{?rhel} < 6
+touch configure
+%else
 autoconf
+%endif
 
 ./configure \
         --prefix=/opt/ruby-%{version} \
