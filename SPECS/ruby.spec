@@ -1,7 +1,7 @@
-%global major_version 2
-%global minor_version 0
-%global teeny_version 0
-%global patch_level   0
+%global major_version 1
+%global minor_version 9
+%global teeny_version 3
+%global patch_level 392
 
 %global major_minor_version %{major_version}.%{minor_version}
 
@@ -20,13 +20,13 @@
 %global rdoc_version 3.9.4
 %global bigdecimal_version 1.1.0
 %global io_console_version 0.3
-%global json_version 1.5.4
+%global json_version 1.5.5
 %global minitest_version 2.5.1
 
 %global	_normalized_cpu	%(echo %{_target_cpu} | sed 's/^ppc/powerpc/;s/i.86/i386/;s/sparcv./sparc/;s/armv.*/arm/')
 
 Summary: An interpreter of object-oriented scripting language
-Name: ruby-2.0-all-in-opt
+Name: ruby-1.9-all-in-opt
 Version: %{ruby_version_patch_level}
 # Note:
 # As seen on perl srpm, as this (ruby) srpm contains several sub-components,
@@ -39,7 +39,6 @@ License: Ruby or BSD
 URL: http://ruby-lang.org/
 Source0: ftp://ftp.ruby-lang.org/pub/ruby/%{major_minor_version}/%{ruby_archive}.tar.gz
 Source1: operating_system.rb
-Source2: configure
 
 # Make mkmf verbose by default
 #Patch12: ruby-1.9.3-mkmf-verbose.patch
@@ -92,11 +91,12 @@ make install DESTDIR=%{buildroot}
 #mkdir -p %{buildroot}%{rubygems_dir}/rubygems/defaults
 #cp %{SOURCE1} %{buildroot}%{rubygems_dir}/rubygems/defaults
 
+mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d
+touch %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby1.9.conf
+echo "/opt/ruby-%{version}/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby1.9.conf
+
 # Create folders for gem binary extensions.
 mkdir -p %{buildroot}%{gem_extdir}/exts
-mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d
-touch %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby2.conf
-echo "/opt/ruby-%{version}/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby2.conf
 
 %check
 # Disable make check on ARM until the bug is fixed
@@ -122,22 +122,20 @@ echo "/opt/ruby-%{version}/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby2.
 %doc LEGAL
 %doc NEWS
 %doc README
-%doc README
 %doc README.EXT
+%doc ToDo
 %lang(ja) %doc COPYING.ja
 %lang(ja) %doc COPYING.ja
 %lang(ja) %doc README.EXT.ja
 %lang(ja) %doc README.ja
 %lang(ja) %doc README.ja
 /opt/ruby-%{version}
-%{_sysconfdir}/ld.so.conf.d/ruby2.conf
+%{_sysconfdir}/ld.so.conf.d/ruby1.9.conf
+
 
 %changelog
-* Sun Feb 24 2013 <stahnma@fedoraproject.org> - 2.0.0.0-100
-- Update for 2.0.0p0
+* Mon Feb 25 2013 <stahnma@fedoraproject.org> - 1.9.3.392-100
+- Update for p392
 
-* Fri Feb 22 2013 <stahnma@fedoraproject.org> - 2.0.0-rc2
-- Update for rc2
-
-* Sat Dec 01 2012 <stahnma@fedoraproject.org> - 2.0.0-preview2
-- Preview 2
+* Mon Oct 29 2012 <stahnma@fedoraproject.org> - 1.9.3.286-1
+- Initial build for opt
