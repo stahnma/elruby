@@ -39,6 +39,7 @@ License: Ruby or BSD
 URL: http://ruby-lang.org/
 Source0: ftp://ftp.ruby-lang.org/pub/ruby/%{major_minor_version}/%{ruby_archive}.tar.gz
 Source1: operating_system.rb
+Source2: configure
 
 # Make mkmf verbose by default
 #Patch12: ruby-1.9.3-mkmf-verbose.patch
@@ -54,6 +55,7 @@ BuildRequires: readline-devel
 BuildRequires: tk-devel
 # Needed to pass test_set_program_name(TestRubyOptions)
 BuildRequires: procps
+BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 Ruby is the interpreted scripting language for quick and easy
@@ -67,9 +69,17 @@ straight-forward, and extensible.
 %setup -q -n %{ruby_archive}
 
 #%%patch12 -p1
+%if 0%{?rhel} < 6
+cp -p %{SOURCE2} .
+chmod 755 ./configure
+%endif
 
 %build
+%if 0%{?rhel} < 6
+touch configure
+%else
 autoconf
+%endif
 
 ./configure \
         --prefix=/opt/ruby-%{version} \
