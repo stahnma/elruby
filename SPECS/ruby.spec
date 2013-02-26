@@ -26,7 +26,7 @@
 %global	_normalized_cpu	%(echo %{_target_cpu} | sed 's/^ppc/powerpc/;s/i.86/i386/;s/sparcv./sparc/;s/armv.*/arm/')
 
 Summary: An interpreter of object-oriented scripting language
-Name: ruby-all-in-opt
+Name: ruby-2.0-all-in-opt
 Version: %{ruby_version_patch_level}
 # Note:
 # As seen on perl srpm, as this (ruby) srpm contains several sub-components,
@@ -73,8 +73,8 @@ straight-forward, and extensible.
 autoconf
 
 ./configure \
-        --prefix=/opt/ruby \
-        --libdir=/opt/ruby/lib \
+        --prefix=/opt/ruby-%{version} \
+        --libdir=/opt/ruby-%{version}/lib \
         --disable-rpath \
         --enable-shared
 
@@ -96,7 +96,7 @@ make install DESTDIR=%{buildroot}
 mkdir -p %{buildroot}%{gem_extdir}/exts
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d
 touch %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby2.conf
-echo "/opt/ruby/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby2.conf
+echo "/opt/ruby-%{version}/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby2.conf
 
 %check
 # Disable make check on ARM until the bug is fixed
@@ -129,7 +129,7 @@ echo "/opt/ruby/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby2.conf
 %lang(ja) %doc README.EXT.ja
 %lang(ja) %doc README.ja
 %lang(ja) %doc README.ja
-/opt/ruby
+/opt/ruby-%{version}
 %{_sysconfdir}/ld.so.conf.d/ruby2.conf
 
 %changelog
