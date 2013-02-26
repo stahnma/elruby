@@ -2,3 +2,4 @@ SRPMS
 BUILDROOT
 RPMS
 BUILD
+*.html
