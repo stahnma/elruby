@@ -26,7 +26,7 @@
 %global	_normalized_cpu	%(echo %{_target_cpu} | sed 's/^ppc/powerpc/;s/i.86/i386/;s/sparcv./sparc/;s/armv.*/arm/')
 
 Summary: An interpreter of object-oriented scripting language
-Name: ruby-1.9-all-in-opt
+Name: pe-ruby
 Version: %{ruby_version_patch_level}
 # Note:
 # As seen on perl srpm, as this (ruby) srpm contains several sub-components,
@@ -82,9 +82,8 @@ autoconf
 %endif
 
 ./configure \
-        --prefix=/opt/ruby-%{version} \
-        --libdir=/opt/ruby-%{version}/lib \
-        --disable-rpath \
+        --prefix=/opt/puppet \
+        --enable-rpath \
         --enable-shared
 
 # Q= makes the build output more verbose and allows to check Fedora
@@ -101,9 +100,9 @@ make install DESTDIR=%{buildroot}
 #mkdir -p %{buildroot}%{rubygems_dir}/rubygems/defaults
 #cp %{SOURCE1} %{buildroot}%{rubygems_dir}/rubygems/defaults
 
-mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d
-touch %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby1.9.conf
-echo "/opt/ruby-%{version}/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby1.9.conf
+#mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d
+#touch %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby1.9.conf
+#echo "/opt/ruby-%{version}/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby1.9.conf
 
 # Create folders for gem binary extensions.
 mkdir -p %{buildroot}%{gem_extdir}/exts
@@ -139,8 +138,11 @@ mkdir -p %{buildroot}%{gem_extdir}/exts
 %lang(ja) %doc README.EXT.ja
 %lang(ja) %doc README.ja
 %lang(ja) %doc README.ja
-/opt/ruby-%{version}
-%{_sysconfdir}/ld.so.conf.d/ruby1.9.conf
+/opt/puppet/bin/*
+/opt/puppet/include/ruby*
+/opt/puppet/lib/*
+/opt/puppet/share/*
+
 
 
 %changelog

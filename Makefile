@@ -1,4 +1,4 @@
-NAME=ruby
+NAME=pe-ruby
 SPEC_FILE=SPECS/$(NAME).spec
 
 RPMBUILD := $(shell if test -f /usr/bin/rpmbuild ; then echo /usr/bin/rpmbuild ; else echo "x" ; fi)
