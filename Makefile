@@ -1,5 +1,5 @@
 NAME=ruby
-SPEC_FILE=SPECS/$(NAME)-1.9.3.spec
+SPEC_FILE=SPECS/$(NAME).spec
 
 RPMBUILD := $(shell if test -f /usr/bin/rpmbuild ; then echo /usr/bin/rpmbuild ; else echo "x" ; fi)
 

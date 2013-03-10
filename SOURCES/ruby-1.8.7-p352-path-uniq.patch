@@ -1,0 +1,54 @@
+--- ruby-1.8.7-p352/array.c.pathuniq	2009-02-05 08:55:33.000000000 +0900
++++ ruby-1.8.7-p352/array.c	2011-07-16 09:44:35.000000000 +0900
+@@ -2954,7 +2954,7 @@
+  *     b.uniq!   #=> nil
+  */
+ 
+-static VALUE
++GCC_VISIBILITY_HIDDEN VALUE
+ rb_ary_uniq_bang(ary)
+     VALUE ary;
+ {
+@@ -2987,7 +2987,7 @@
+  *     a.uniq   #=> ["a", "b", "c"]
+  */
+ 
+-static VALUE
++GCC_VISIBILITY_HIDDEN VALUE
+ rb_ary_uniq(ary)
+     VALUE ary;
+ {
+--- ruby-1.8.7-p352/intern.h.pathuniq	2011-05-23 13:49:40.000000000 +0900
++++ ruby-1.8.7-p352/intern.h	2011-07-16 09:43:10.000000000 +0900
+@@ -18,6 +18,11 @@
+  */
+ 
+ #define ID_ALLOCATOR 1
++#ifdef __GNUC__
++#define GCC_VISIBILITY_HIDDEN __attribute__ ((visibility("hidden")))
++#else
++#define GCC_VISIBILITY_HIDDEN
++#endif
+ 
+ /* array.c */
+ void rb_mem_clear _((register VALUE*, register long));
+@@ -44,6 +49,8 @@
+ VALUE rb_ary_reverse _((VALUE));
+ VALUE rb_ary_sort _((VALUE));
+ VALUE rb_ary_sort_bang _((VALUE));
++GCC_VISIBILITY_HIDDEN VALUE rb_ary_uniq _((VALUE));
++GCC_VISIBILITY_HIDDEN VALUE rb_ary_uniq_bang _((VALUE));
+ VALUE rb_ary_delete _((VALUE, VALUE));
+ VALUE rb_ary_delete_at _((VALUE, long));
+ VALUE rb_ary_clear _((VALUE));
+--- ruby-1.8.7-p352/ruby.c.pathuniq	2011-07-16 08:54:11.000000000 +0900
++++ ruby-1.8.7-p352/ruby.c	2011-07-16 09:36:13.000000000 +0900
+@@ -338,6 +338,8 @@
+     if (rb_safe_level() == 0) {
+ 	incpush(".");
+     }
++
++    rb_load_path = rb_ary_uniq(rb_load_path);
+ }
+ 
+ struct req_list {
