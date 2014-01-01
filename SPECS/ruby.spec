@@ -1,7 +1,7 @@
 %global major_version 2
 %global minor_version 0
 %global teeny_version 0
-%global patch_level   0
+%global patch_level   247
 
 %global major_minor_version %{major_version}.%{minor_version}
 
@@ -33,7 +33,7 @@ Version: %{ruby_version_patch_level}
 # we cannot reset the release number to 1 even when the main (ruby) version
 # is updated - because it may be that the versions of sub-components don't
 # change.
-Release: 100%{?dist}.elruby
+Release: 1%{?dist}.elruby
 Group: Development/Languages
 License: Ruby or BSD
 URL: http://ruby-lang.org/
@@ -143,6 +143,9 @@ echo "/opt/ruby-%{version}/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby2.
 %{_sysconfdir}/ld.so.conf.d/ruby2.conf
 
 %changelog
+* Thu Aug 15 2013 <stahnma@fedoraproject.org> - 2.0.0.247-1
+- Update for 2.0.0p247
+
 * Sun Feb 24 2013 <stahnma@fedoraproject.org> - 2.0.0.0-100
 - Update for 2.0.0p0
 
