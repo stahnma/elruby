@@ -1,5 +1,19 @@
 # stahnma's elruby
 
+## News
+
+### 13 Jan 2014
+
+I've updated the all-in-opt packages with a Ruby 2.1.0 build. The all-in-opt
+packages appear to be the most popular. I imagine this is because you can just
+gem install or run bundler from there. Either way, Ruby 2.1.0 is now available.
+I haven't personally vetted these packages yet, if they have issues, please
+file Github issues.
+
+I also think I am going to remove the side-by-side options. This is partially
+because I never finished them and also because Red Hat's software collections
+seem to cover this.
+
 ## Overview
 
 The goal of this project is to provide multiple versions and installation
@@ -26,14 +40,14 @@ with all versions of ruby. This may mean rebuilding gem packages or just using
 #### Yum Config
 
 Ruby 1.8.7 (EL5 only)
-    
+
     [elruby-replace-187]
     name="elruby replacement 1.8.7"
     baseurl="http://elruby.websages.com/replacement/1.8.7/5/$basearch/"
     enabled=1
     gpgcheck=0
-    
-    
+
+
 Ruby 1.9.3
 
     [elruby-replace-193]
@@ -87,6 +101,13 @@ Ruby 1.9.3
     enabled=1
     gpgcheck=0
 
+    [elruby-opt-210]
+    name="elruby all-in-opt 2.1.0"
+    baseurl="http://elruby.websages.com/all-in-opt/2.0.1/$releasever/$basearch/"
+    enabled=1
+    gpgcheck=0
+
+
 ## Side by side _WIP_
 <hr>
 These packages are desisgned to work side-by-side with the system-provided
@@ -110,6 +131,8 @@ Ruby 1.9.3
 _Still a work in progress._
 
 _Packages not built or through QA yet_
+
+_See News, these packages will likely be removed/never completed_
 
 
 ## Bugs
@@ -137,4 +160,4 @@ Everything in elruby is Ruby license unless otherwise noted.
 
 
 ## Author
-[@stahnma](http://twitter.com/stahnma) on twitter. © 2013
+[@stahnma](http://twitter.com/stahnma) on twitter. © 2013-2014
