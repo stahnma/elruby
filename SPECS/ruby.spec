@@ -1,15 +1,14 @@
 %global major_version 2
-%global minor_version 0
+%global minor_version 1
 %global teeny_version 0
-%global patch_level   0
 
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
-%global ruby_version_patch_level %{major_minor_version}.%{teeny_version}.%{patch_level}
+%global ruby_version_patch_level %{major_minor_version}.%{teeny_version}
 %global ruby_abi %{major_minor_version}.1
 
-%global ruby_archive ruby-%{ruby_version}-p%{patch_level}
+%global ruby_archive ruby-%{ruby_version}
 
 %global rubygems_version 1.8.23
 
@@ -26,7 +25,7 @@
 %global	_normalized_cpu	%(echo %{_target_cpu} | sed 's/^ppc/powerpc/;s/i.86/i386/;s/sparcv./sparc/;s/armv.*/arm/')
 
 Summary: An interpreter of object-oriented scripting language
-Name: ruby-2.0-all-in-opt
+Name: ruby-2.1-all-in-opt
 Version: %{ruby_version_patch_level}
 # Note:
 # As seen on perl srpm, as this (ruby) srpm contains several sub-components,
@@ -143,6 +142,9 @@ echo "/opt/ruby-%{version}/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/ruby2.
 %{_sysconfdir}/ld.so.conf.d/ruby2.conf
 
 %changelog
+* Wed Jan 01 2014 <stahnma@fedoraproject.org> - 2.1.0-100
+- update to ruby 2.1.0
+
 * Sun Feb 24 2013 <stahnma@fedoraproject.org> - 2.0.0.0-100
 - Update for 2.0.0p0
 
