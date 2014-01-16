@@ -4,15 +4,17 @@
 
 ### 13 Jan 2014
 
+#### Ruby 2.1.0
 I've updated the all-in-opt packages with a Ruby 2.1.0 build. The all-in-opt
 packages appear to be the most popular. I imagine this is because you can just
 gem install or run bundler from there. Either way, Ruby 2.1.0 is now available.
 I haven't personally vetted these packages yet, if they have issues, please
 file Github issues.
 
-I also think I am going to remove the side-by-side options. This is partially
+#### Side-by-side attempt is over
+Side-by-side packages have also been removed. This is partially
 because I never finished them and also because Red Hat's software collections
-seem to cover this.
+seem to cover this. See the side-by-side heading for more information on SCL.
 
 ## Overview
 
@@ -100,7 +102,9 @@ Ruby 1.9.3
     baseurl="http://elruby.websages.com/all-in-opt/2.0.0/$releasever/$basearch/"
     enabled=1
     gpgcheck=0
-
+    
+ Ruby 2.1.0
+ 
     [elruby-opt-210]
     name="elruby all-in-opt 2.1.0"
     baseurl="http://elruby.websages.com/all-in-opt/2.0.1/$releasever/$basearch/"
@@ -108,31 +112,16 @@ Ruby 1.9.3
     gpgcheck=0
 
 
-## Side by side _WIP_
+## Side by side _Replaced_
 <hr>
-These packages are desisgned to work side-by-side with the system-provided
-ruby. These are by far the most difficult packages to produce and therefore may
-lag behind the other types of packages. These are less tested as well.
+Side by side packages from elruby have been deprecated. These are replaced by Software Collections.
 
-Upsides:
-
-  * Doesn't clobber system ruby.
-  * Could potentially be included in EPEL someday.
-
-Downsides:
-
-  * bin files will be things like `/usr/bin/ruby19`
-  * packages need to update dependencies etc
-  * difficult to package and maintain
-
-#### Yum Config
-Ruby 1.9.3
-
-_Still a work in progress._
-
-_Packages not built or through QA yet_
-
-_See News, these packages will likely be removed/never completed_
+Futher information:
+  
+   * [Developer blog from Red Hat on how to use Software Collections](http://developerblog.redhat.com/2013/01/31/ruby-on-rails-3-2-on-red-hat-enterprise-linux-6-with-software-collections/#more-81)
+  * [Ruby 1.9.3 software collection from CentOS](http://dev.centos.org/centos/6/SCL/x86_64/ruby193/)
+  * [Ruby 1.9.3 SCL repo file from CentOS](http://dev.centos.org/centos/6/SCL/scl.repo)
+ 
 
 
 ## Bugs
