@@ -102,12 +102,12 @@ Ruby 1.9.3
     baseurl="http://elruby.websages.com/all-in-opt/2.0.0/$releasever/$basearch/"
     enabled=1
     gpgcheck=0
-    
+
  Ruby 2.1.0
- 
+
     [elruby-opt-210]
     name="elruby all-in-opt 2.1.0"
-    baseurl="http://elruby.websages.com/all-in-opt/2.0.1/$releasever/$basearch/"
+    baseurl="http://elruby.websages.com/all-in-opt/2.1.0/$releasever/$basearch/"
     enabled=1
     gpgcheck=0
 
@@ -117,11 +117,11 @@ Ruby 1.9.3
 Side by side packages from elruby have been deprecated. These are replaced by Software Collections.
 
 Futher information:
-  
+
    * [Developer blog from Red Hat on how to use Software Collections](http://developerblog.redhat.com/2013/01/31/ruby-on-rails-3-2-on-red-hat-enterprise-linux-6-with-software-collections/#more-81)
   * [Ruby 1.9.3 software collection from CentOS](http://dev.centos.org/centos/6/SCL/x86_64/ruby193/)
   * [Ruby 1.9.3 SCL repo file from CentOS](http://dev.centos.org/centos/6/SCL/scl.repo)
- 
+
 
 
 ## Bugs
